@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="SmartDoor.App.Views.SplashView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <!-- 1. Animasi Pulse untuk Icon -->
+        <Storyboard x:Key="PulseAnimation" RepeatBehavior="Forever" AutoReverse="True">
+            <DoubleAnimation Storyboard.TargetName="IconContainer" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" From="1" To="1.05" Duration="0:0:1.5"/>
+            <DoubleAnimation Storyboard.TargetName="IconContainer" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" From="1" To="1.05" Duration="0:0:1.5"/>
+        </Storyboard>
+
+        <!-- 2. Animasi Fade-In untuk seluruh konten -->
+        <Storyboard x:Key="FadeInAnimation">
+            <DoubleAnimation Storyboard.TargetName="MainContent" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1.5">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <!-- 3. Pola Grid Background (SUDAH DIPERBAIKI) -->
+        <DrawingBrush x:Key="GridPattern" TileMode="Tile" Viewport="0,0,30,30" ViewportUnits="Absolute">
+            <DrawingBrush.Drawing>
+                <GeometryDrawing>
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <LineGeometry StartPoint="0,0" EndPoint="0,30"/>
+                            <LineGeometry StartPoint="0,0" EndPoint="30,0"/>
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                    <GeometryDrawing.Pen>
+                        <Pen Thickness="0.5">
+                            <Pen.Brush>
+                                <SolidColorBrush Color="#FFFFFF" Opacity="0.05"/>
+                            </Pen.Brush>
+                        </Pen>
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Gradient Background -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#6366F1" Offset="0"/>
+                <GradientStop Color="#8B5CF6" Offset="0.5"/>
+                <GradientStop Color="#14B8A6" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Overlay Grid Pattern -->
+        <Rectangle Fill="{StaticResource GridPattern}" />
+
+        <!-- Konten Utama (Dengan Animasi Fade-In) -->
+        <StackPanel x:Name="MainContent" Opacity="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="520">
+            <StackPanel.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource FadeInAnimation}"/>
+                </EventTrigger>
+            </StackPanel.Triggers>
+
+            <!-- Logo -->
+            <Grid Width="140" Height="140" HorizontalAlignment="Center">
+                <Grid x:Name="IconContainer" RenderTransformOrigin="0.5,0.5">
+                    <Grid.RenderTransform>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                    </Grid.RenderTransform>
+                    <Grid.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard Storyboard="{StaticResource PulseAnimation}"/>
+                        </EventTrigger>
+                    </Grid.Triggers>
+
+                    <Ellipse Fill="#FFFFFF" Opacity="0.15"/>
+                    <TextBlock Text="🔐" FontSize="80" FontFamily="Segoe UI Emoji"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
+
+            <TextBlock Text="Smart Door Access" FontSize="42" FontWeight="Bold"
+                       Foreground="White" HorizontalAlignment="Center"
+                       Margin="0,20,0,4" FontFamily="Segoe UI Variable"/>
+
+            <TextBlock Text="───────────" FontSize="14" Foreground="#FFFFFF" Opacity="0.6"
+                       HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+            <TextBlock Text="&quot;Kenyamanan yang utama, keamanan yang tak terbantahkan&quot;"
+                       FontSize="13" FontStyle="Italic" Foreground="White" Opacity="0.9"
+                       HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,30"/>
+
+            <!-- Kotak Checklist -->
+            <Border Background="#FFFFFF" Opacity="0.1" CornerRadius="10" Padding="25,20" Margin="0,0,0,30" BorderBrush="#FFFFFF" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="⚙️ MENYIAPKAN SISTEM" FontSize="12" FontWeight="Bold"
+                               Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="✅" FontFamily="Segoe UI Emoji" FontSize="12" Foreground="White" Margin="0,0,10,0"/>
+                        <TextBlock Text="Menghubungkan ke Database SQL Server..." FontSize="12" Foreground="White" Opacity="0.9"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="✅" FontFamily="Segoe UI Emoji" FontSize="12" Foreground="White" Margin="0,0,10,0"/>
+                        <TextBlock Text="Mengecek Koneksi Arduino (COM3)..." FontSize="12" Foreground="White" Opacity="0.9"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="⏳" FontFamily="Segoe UI Emoji" FontSize="12" Foreground="White" Margin="0,0,10,0"/>
+                        <TextBlock Text="Memuat Antarmuka Pengguna..." FontSize="12" Foreground="White" FontWeight="Bold"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Progress Bar -->
+            <ProgressBar Width="400" Height="4" IsIndeterminate="True"
+                         Foreground="White" Background="#FFFFFF" Opacity="0.6"
+                         BorderThickness="0" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Memuat sistem..." FontSize="12" Foreground="White" Opacity="0.8" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Info System di Pojok Kiri Bawah -->
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20">
+            <TextBlock Text="SECURE BOOT: ENABLED" FontSize="10" FontWeight="Bold" Foreground="#FFFFFF" Opacity="0.5" FontFamily="Consolas"/>
+            <TextBlock Text="ENCRYPTION: AES-256" FontSize="10" Foreground="#FFFFFF" Opacity="0.5" FontFamily="Consolas"/>
+        </StackPanel>
+
+        <!-- Indikator Hardware di Pojok Kanan Bawah -->
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Orientation="Horizontal">
+            <!-- Titik Hijau Berkedip -->
+            <Ellipse Width="8" Height="8" Fill="#10B981" Margin="0,0,8,0" VerticalAlignment="Center">
+                <Ellipse.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.2" Duration="0:0:0.8"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Ellipse.Triggers>
+            </Ellipse>
+            <TextBlock Text="SYSTEM ONLINE" FontSize="10" FontWeight="Bold" Foreground="#FFFFFF" Opacity="0.7" FontFamily="Consolas" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Versi Aplikasi di Pojok Kanan Atas -->
+        <TextBlock Text="v1.0.0" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="20" 
+                   FontSize="11" FontWeight="Bold" Foreground="#FFFFFF" Opacity="0.5" FontFamily="Consolas"/>
+
+    </Grid>
+</UserControl>

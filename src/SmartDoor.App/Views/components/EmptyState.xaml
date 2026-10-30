@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="SmartDoor.App.Views.Components.EmptyState"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="root">
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
+        <TextBlock Text="{Binding Icon, ElementName=root}"
+                   FontSize="52"
+                   HorizontalAlignment="Center"
+                   Opacity="0.5"/>
+        <TextBlock Text="{Binding Title, ElementName=root}"
+                   FontSize="14" FontWeight="SemiBold"
+                   Foreground="{DynamicResource SubTextBrush}"
+                   HorizontalAlignment="Center"
+                   Margin="0,10,0,4"/>
+        <TextBlock Text="{Binding Message, ElementName=root}"
+                   FontSize="12"
+                   Foreground="{DynamicResource MutedTextBrush}"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap"
+                   MaxWidth="300"/>
+    </StackPanel>
+</UserControl>

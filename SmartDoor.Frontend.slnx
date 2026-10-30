@@ -2,4 +2,5 @@
   <Folder Name="/src/">
     <Project Path="src/SmartDoor.App/SmartDoor.App.csproj" />
   </Folder>
+  <Project Path="../Smartdoor-Backend/src/SmartDoor.Backend/SmartDoor.Backend.csproj" />
 </Solution>
