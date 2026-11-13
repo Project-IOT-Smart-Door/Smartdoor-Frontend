@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SmartDoor.App.Services;
 using SmartDoor.App.ViewModels;
@@ -11,6 +12,7 @@ namespace SmartDoor.App;
 public partial class App : Application
 {
     public static IServiceProvider Services { get; private set; } = null!;
+    public static IConfiguration Configuration { get; private set; } = null!;
 
     protected override void OnStartup(StartupEventArgs e)
     {
