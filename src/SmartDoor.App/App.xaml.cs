@@ -5,7 +5,6 @@ using SmartDoor.App.ViewModels;
 using SmartDoor.Backend.Data;
 using SmartDoor.Backend.Services;
 using System;
-using System.IO;
 using System.Windows;
 
 namespace SmartDoor.App;
@@ -19,25 +18,11 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        // Muat konfigurasi dari appsettings.json yang ada di folder output aplikasi.
-        var basePath = AppContext.BaseDirectory;
-        Configuration = new ConfigurationBuilder()
-            .SetBasePath(basePath)
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .Build();
-
-        // Ambil connection string dari appsettings.json (Koneksi ke SQL Server via SSMS).
-        string cs = Configuration.GetConnectionString("Default")
-            ?? @"Server=(localdb)\MSSQLLocalDB;Database=SmartDoor;Trusted_Connection=True;TrustServerCertificate=True";
-
-        // Ambil pengaturan aplikasi dari appsettings.json.
-        int idPintu = int.Parse(Configuration["AppSettings:IdPintu"] ?? "1");
-        string actor = Configuration["AppSettings:Actor"] ?? "app";
-
         var services = new ServiceCollection();
 
         // === BACKEND ===
-        services.AddSingleton<SmartDoorDb>(_ => new SmartDoorDb(cs));
+        services.AddSingleton<SmartDoorDb>(_ =>
+            new SmartDoorDb("Server=(localdb)\\MSSQLLocalDB;Database=SmartDoor;Trusted_Connection=True;TrustServerCertificate=True;"));
 
         services.AddSingleton<AuthService>();
         services.AddSingleton<SerialService>();
