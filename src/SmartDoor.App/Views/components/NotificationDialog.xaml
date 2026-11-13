@@ -1,0 +1,81 @@
+﻿<Window x:Class="SmartDoor.App.Views.Components.NotificationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Notifikasi"
+        Height="340" Width="440"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <Border Background="{DynamicResource CardBrush}" 
+            CornerRadius="16" 
+            Padding="30">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="30" ShadowDepth="3" Opacity="0.3"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Icon + Judul -->
+            <StackPanel Grid.Row="0" HorizontalAlignment="Center">
+                <Border x:Name="IconBorder"
+                        Background="{DynamicResource SuccessBrush}" 
+                        Width="72" Height="72" 
+                        CornerRadius="36"
+                        HorizontalAlignment="Center">
+                    <TextBlock x:Name="IconText"
+                               Text="✓" 
+                               FontSize="42" 
+                               FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"/>
+                </Border>
+
+                <TextBlock x:Name="TitleText"
+                           Text="BERHASIL!"
+                           FontSize="20" 
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource TextBrush}"
+                           Margin="0,15,0,0" 
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Pesan -->
+            <TextBlock x:Name="MessageText"
+                       Grid.Row="1"
+                       Text="Operasi berhasil."
+                       FontSize="13" 
+                       Foreground="{DynamicResource SubTextBrush}"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="10,20"/>
+
+            <!-- Tombol OK -->
+            <Button Grid.Row="2"
+                    Content="OK"
+                    Click="OkButton_Click"
+                    Width="140" Height="42"
+                    FontSize="14" FontWeight="Bold"
+                    Background="{DynamicResource PrimaryBrush}" 
+                    Foreground="White"
+                    BorderThickness="0" 
+                    Cursor="Hand"
+                    HorizontalAlignment="Center">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+    </Border>
+</Window>

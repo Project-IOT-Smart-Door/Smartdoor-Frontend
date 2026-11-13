@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="SmartDoor.App.Views.RegisterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{DynamicResource BgBrush}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Border Width="520" Padding="40" CornerRadius="16" Margin="0,20"
+                Background="{DynamicResource CardBrush}"
+                BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                HorizontalAlignment="Center">
+            <Border.Effect>
+                <!-- Shadow diubah menjadi warna Teal -->
+                <DropShadowEffect BlurRadius="40" ShadowDepth="4" Opacity="0.08" Color="#0D9488"/>
+            </Border.Effect>
+
+            <StackPanel>
+                <!-- Tombol Kembali -->
+                <Button Command="{Binding GoBackCommand}" HorizontalAlignment="Left" 
+                        Background="Transparent" BorderThickness="0" Cursor="Hand" Margin="0,0,0,10">
+                    <TextBlock Text="← Kembali ke Login" Foreground="{DynamicResource SubTextBrush}" FontWeight="SemiBold"/>
+                </Button>
+
+                <!-- Header -->
+                <!-- Background Icon diubah menjadi hijau muda -->
+                <Border Width="80" Height="80" CornerRadius="40" Background="#CCFBF1" HorizontalAlignment="Center">
+                    <TextBlock Text="👤" FontSize="40" FontFamily="Segoe UI Emoji" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <TextBlock Text="DAFTAR AKUN BARU" FontSize="22" FontWeight="Bold"
+                           Foreground="{DynamicResource TextBrush}"
+                           HorizontalAlignment="Center" Margin="0,15,0,20"/>
+
+                <!-- SECTION: DATA DIRI -->
+                <TextBlock Text="───────  DATA DIRI  ───────" FontSize="12" FontWeight="SemiBold" 
+                           Foreground="{DynamicResource MutedTextBrush}" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                <!-- Nama Lengkap -->
+                <TextBlock Text="👤  Nama Lengkap" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SubTextBrush}" Margin="0,0,0,5"/>
+                <TextBox Text="{Binding NamaLengkap}" Style="{StaticResource InputTextBox}" Margin="0,0,0,12"/>
+
+                <!-- Gender & Umur -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="👤  Gender" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SubTextBrush}" Margin="0,0,0,5"/>
+                        <ComboBox SelectedItem="{Binding Gender}" Height="42" Padding="10,0" VerticalContentAlignment="Center"
+                                  Background="{DynamicResource BgBrush}" BorderBrush="{DynamicResource BorderBrush}">
+                            <ComboBoxItem Content="Laki-laki"/>
+                            <ComboBoxItem Content="Perempuan"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="🎂  Umur" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SubTextBrush}" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding Umur}" Style="{StaticResource InputTextBox}"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- NIM & No HP -->
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="12"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="🆔  NIM/NIP" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SubTextBrush}" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding NIM}" Style="{StaticResource InputTextBox}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="📱  No. HP" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SubTextBrush}" Margin="0,0,0,5"/>
+                        <TextBox Text="{Binding NoHP}" Style="{StaticResource InputTextBox}"/>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Email -->
+                <TextBlock Text="📧  Email" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SubTextBrush}" Margin="0,0,0,5"/>
+                <TextBox Text="{Binding Email}" Style="{StaticResource InputTextBox}" Margin="0,0,0,15"/>
+
+                <!-- SECTION: AKUN -->
+                <TextBlock Text="───────  AKUN  ───────" FontSize="12" FontWeight="SemiBold" 
+                           Foreground="{DynamicResource MutedTextBrush}" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+                <!-- Username -->
+                <TextBlock Text="🆔  Username" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SubTextBrush}" Margin="0,0,0,5"/>
+                <TextBox Text="{Binding Username}" Style="{StaticResource InputTextBox}" Margin="0,0,0,12"/>
+
+                <!-- Password -->
+                <TextBlock Text="🔒  Password" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SubTextBrush}" Margin="0,0,0,5"/>
+                <PasswordBox x:Name="Pwd1" PasswordChanged="Pwd1_PasswordChanged" Style="{StaticResource InputPasswordBox}" Margin="0,0,0,12"/>
+
+                <!-- Konfirmasi Password -->
+                <TextBlock Text="🔒  Konfirmasi Password" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource SubTextBrush}" Margin="0,0,0,5"/>
+                <PasswordBox x:Name="Pwd2" PasswordChanged="Pwd2_PasswordChanged" Style="{StaticResource InputPasswordBox}" Margin="0,0,0,12"/>
+
+                <!-- S&K Checkbox -->
+                <CheckBox Content="Saya setuju dengan Syarat &amp; Ketentuan" 
+                          IsChecked="{Binding IsAgreed}"
+                          Foreground="{DynamicResource SubTextBrush}" Margin="0,5,0,15"/>
+
+                <!-- Pesan Error/Sukses -->
+                <TextBlock Text="{Binding Message}" Foreground="{DynamicResource DangerBrush}" 
+                           FontSize="12" Margin="0,0,0,10" TextWrapping="Wrap"/>
+
+                <!-- Tombol Daftar (Warna Teal) -->
+                <Button Content="DAFTAR SEKARANG  →" Command="{Binding RegisterCommand}" 
+                        Height="46" FontSize="14" FontWeight="Bold"
+                        Background="{DynamicResource UserPrimaryBrush}" Foreground="White"
+                        BorderThickness="0" Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <!-- Footer Info -->
+                <TextBlock Text="ℹ️ Kartu RFID didaftarkan nanti di menu &quot;Kartu Saya&quot; setelah login." 
+                           FontSize="11" Foreground="{DynamicResource MutedTextBrush}" 
+                           TextAlignment="Center" TextWrapping="Wrap" Margin="0,15,0,0"/>
+            </StackPanel>
+        </Border>
+    </ScrollViewer>
+</UserControl>
